@@ -10,8 +10,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <a href="/" className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4 block">
-              Profit3D
+            <a href="/" className="mb-4 block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src="/icons/logo1-sfundo.png" 
+                alt="Profit3D" 
+                className="h-10 w-auto brightness-0 invert"
+              />
             </a>
             <p className="text-sm text-gray-400 max-w-md">
               Ferramentas para vendedores de impressão 3D que querem aumentar suas vendas e margens em marketplaces

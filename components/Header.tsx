@@ -9,26 +9,43 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Profit3D
+            <a href="/" className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/icons/logo1-sfundo.png"
+                alt="Profit3D"
+                className="h-28 w-auto"
+              />
             </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a
+              href="#features"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
               Ferramentas
             </a>
-            <a href="#how-it-works" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a
+              href="#how-it-works"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
               Como funciona
             </a>
-            <a href="#pricing" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a
+              href="#pricing"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
               Planos
             </a>
-            <a href="#faq" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <a
+              href="#faq"
+              className="text-gray-700 hover:text-gray-900 transition-colors"
+            >
               FAQ
             </a>
             <a

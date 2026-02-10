@@ -4,6 +4,7 @@ const plans = [
   {
     marketplace: "Mercado Livre",
     icon: "ML",
+    iconImage: "/icons/ml-icon.png",
     iconColor: "bg-yellow-400",
     monthly: {
       price: "49,90",
@@ -27,6 +28,7 @@ const plans = [
   {
     marketplace: "Shopee + Mercado Livre",
     icon: "S+ML",
+    iconImage: "/icons/combo-icon.png",
     iconColor: "bg-gradient-to-r from-orange-500 to-yellow-400",
     monthly: {
       price: "99,00",
@@ -103,8 +105,13 @@ export default function PricingPreview() {
 
               {/* Plan Header */}
               <div className="text-center mb-6">
-                <div className={`inline-flex w-16 h-16 ${plan.iconColor} rounded-xl items-center justify-center font-bold text-white text-lg mb-4 shadow-lg`}>
-                  {plan.icon}
+                <div className="inline-flex w-20 h-20 bg-white rounded-xl items-center justify-center mb-4 shadow-lg p-2 border border-gray-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={plan.iconImage} 
+                    alt={plan.marketplace}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.marketplace}</h3>
               </div>

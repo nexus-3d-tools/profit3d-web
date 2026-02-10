@@ -5,6 +5,8 @@ const tools = [
     name: "Mercado Livre",
     description: "Maximize seu faturamento no maior marketplace da América Latina com análises completas.",
     color: "yellow",
+    iconImage: "/icons/ml-icon.png",
+    useImage: true,
     features: ["Análise de margem em tempo real", "Precificação inteligente", "Relatórios de vendas e lucro"],
     ctaText: "Ver planos Mercado Livre",
     ctaHref: "#pricing",
@@ -13,6 +15,8 @@ const tools = [
     name: "Shopee",
     description: "Transforme suas vendas na Shopee com métricas precisas e decisões baseadas em dados.",
     color: "orange",
+    iconImage: "/icons/combo-icon.png",
+    useImage: true,
     features: ["Cálculo automático de custos", "Dashboard de performance", "Análise de competitividade"],
     ctaText: "Ver planos Shopee",
     ctaHref: "#pricing",
@@ -48,12 +52,25 @@ export default function ToolsShowcase() {
             >
               {/* Tool Header */}
               <div className="flex items-center gap-3 mb-4">
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-white text-lg ${
-                    tool.color === "yellow" ? "bg-yellow-400" : "bg-orange-500"
-                  }`}
-                >
-                  {tool.name.charAt(0)}
+                <div className={`w-14 h-14 rounded-lg flex items-center justify-center ${
+                  tool.useImage 
+                    ? "bg-white border border-gray-200 p-2" 
+                    : tool.color === "yellow" 
+                      ? "bg-yellow-400" 
+                      : "bg-orange-500"
+                }`}>
+                  {tool.useImage ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src={tool.iconImage} 
+                        alt={tool.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </>
+                  ) : (
+                    <span className="text-white font-bold text-2xl">{tool.iconLetter}</span>
+                  )}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">{tool.name}</h3>
               </div>
