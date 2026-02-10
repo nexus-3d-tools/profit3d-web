@@ -13,7 +13,7 @@ const tools = [
     name: "Shopee",
     description: "Transforme suas vendas na Shopee com métricas precisas e decisões baseadas em dados.",
     iconImage: "/icons/combo-icon.png",
-    features: ["Cálculo automático de custos", "Dashboard de performance", "Análise de competitividade"],
+    features: ["Cálculo automático de custos", "Análise de margem em tempo real", "Precificação inteligente"],
     ctaText: "Ver planos Shopee",
     ctaHref: "#pricing",
   },
@@ -44,8 +44,8 @@ export default function ToolsShowcase() {
               key={index}
               className="bg-white rounded-2xl border-2 border-gray-200 p-8 hover:border-blue-300 hover:shadow-xl transition-all duration-300"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center border border-gray-200 p-2">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-28 h-28 sm:w-32 sm:h-32 bg-white rounded-lg flex items-center justify-center border border-gray-200 p-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={tool.iconImage} 

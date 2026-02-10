@@ -16,7 +16,7 @@ export default function Header() {
               <img
                 src="/icons/logo1-sfundo.png"
                 alt="Profit3D"
-                className="h-12 w-auto"
+                className="h-20 sm:h-24 w-auto"
               />
             </a>
           </div>
