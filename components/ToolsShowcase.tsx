@@ -33,7 +33,6 @@ export default function ToolsShowcase() {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50/30">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Ferramentas disponíveis
@@ -43,14 +42,12 @@ export default function ToolsShowcase() {
           </p>
         </div>
 
-        {/* Tools Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           {tools.map((tool, index) => (
             <div
               key={index}
               className="bg-white rounded-2xl border-2 border-gray-200 p-8 hover:border-blue-300 hover:shadow-xl transition-all duration-300"
             >
-              {/* Tool Header */}
               <div className="flex items-center gap-3 mb-4">
                 <div className={`w-14 h-14 rounded-lg flex items-center justify-center ${
                   tool.useImage 
@@ -61,7 +58,6 @@ export default function ToolsShowcase() {
                 }`}>
                   {tool.useImage ? (
                     <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img 
                         src={tool.iconImage} 
                         alt={tool.name}
@@ -75,10 +71,8 @@ export default function ToolsShowcase() {
                 <h3 className="text-2xl font-bold text-gray-900">{tool.name}</h3>
               </div>
 
-              {/* Description */}
               <p className="text-gray-600 mb-6">{tool.description}</p>
 
-              {/* Features List */}
               <ul className="space-y-3 mb-8">
                 {tool.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
@@ -88,7 +82,6 @@ export default function ToolsShowcase() {
                 ))}
               </ul>
 
-              {/* CTA Button */}
               <a
                 href={tool.ctaHref}
                 className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-primary text-white rounded-lg font-semibold hover:bg-gradient-primary-hover transition-all shadow-md hover:shadow-lg group"
@@ -100,7 +93,6 @@ export default function ToolsShowcase() {
           ))}
         </div>
 
-        {/* Coming Soon Section */}
         <div className="bg-white rounded-2xl border-2 border-dashed border-gray-300 p-8">
           <div className="text-center mb-6">
             <span className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-3">

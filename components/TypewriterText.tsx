@@ -23,19 +23,16 @@ export default function TypewriterText({
     const currentPhrase = phrases[currentPhraseIndex].text;
 
     if (!isDeleting && currentText === currentPhrase) {
-      // Pause before deleting
       const timeout = setTimeout(() => setIsDeleting(true), pauseDuration);
       return () => clearTimeout(timeout);
     }
 
     if (isDeleting && currentText === "") {
-      // Move to next phrase
       setIsDeleting(false);
       setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
       return;
     }
 
-    // Type or delete
     const timeout = setTimeout(
       () => {
         setCurrentText((prev) => {

@@ -42,7 +42,6 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-4xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
             Tire suas dúvidas sobre o Profit3D
@@ -50,7 +49,6 @@ export default function FAQ() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Perguntas frequentes</h2>
         </div>
 
-        {/* FAQ Items */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
@@ -78,7 +76,6 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* CTA */}
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">Ainda tem dúvidas?</p>
           <a

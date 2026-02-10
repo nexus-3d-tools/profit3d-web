@@ -6,12 +6,9 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <a href="/" className="mb-4 block">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/icons/logo1-sfundo.png" 
                 alt="Profit3D" 
@@ -24,7 +21,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links */}
           <div>
             <h3 className="font-semibold text-white mb-4">Links</h3>
             <ul className="space-y-2 text-sm">
@@ -51,7 +47,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="font-semibold text-white mb-4">Legal</h3>
             <ul className="space-y-2 text-sm">
@@ -74,15 +69,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright */}
             <p className="text-sm text-gray-400">
               © {currentYear} Profit3D. Todos os direitos reservados.
             </p>
 
-            {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
                 href="https://instagram.com"
