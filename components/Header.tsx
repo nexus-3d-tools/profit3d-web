@@ -12,10 +12,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/icons/logo1-sfundo.png"
                 alt="Profit3D"
-                className="h-28 w-auto"
+                className="h-12 w-auto"
               />
             </a>
           </div>

@@ -101,6 +101,7 @@ export default function PricingPreview() {
 
               <div className="text-center mb-6">
                 <div className="inline-flex w-20 h-20 bg-white rounded-xl items-center justify-center mb-4 shadow-lg p-2 border border-gray-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={plan.iconImage} 
                     alt={plan.marketplace}
