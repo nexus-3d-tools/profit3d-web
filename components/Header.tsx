@@ -23,31 +23,31 @@ export default function Header() {
 
           <div className="hidden md:flex items-center space-x-8">
             <a
-              href="#features"
+              href="/#features"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               Ferramentas
             </a>
             <a
-              href="#how-it-works"
+              href="/#how-it-works"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               Como funciona
             </a>
             <a
-              href="#pricing"
+              href="/#pricing"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               Planos
             </a>
             <a
-              href="#faq"
+              href="/#faq"
               className="text-gray-700 hover:text-gray-900 transition-colors"
             >
               FAQ
             </a>
             <a
-              href="#pricing"
+              href="/#pricing"
               className="px-6 py-2.5 bg-gradient-primary text-white rounded-lg font-medium hover:bg-gradient-primary-hover transition-all shadow-md hover:shadow-lg"
             >
               Começar agora
@@ -68,35 +68,35 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-3">
             <a
-              href="#features"
+              href="/#features"
               className="block text-gray-700 hover:text-gray-900 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Ferramentas
             </a>
             <a
-              href="#how-it-works"
+              href="/#how-it-works"
               className="block text-gray-700 hover:text-gray-900 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Como funciona
             </a>
             <a
-              href="#pricing"
+              href="/#pricing"
               className="block text-gray-700 hover:text-gray-900 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Planos
             </a>
             <a
-              href="#faq"
+              href="/#faq"
               className="block text-gray-700 hover:text-gray-900 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               FAQ
             </a>
             <a
-              href="#pricing"
+              href="/#pricing"
               className="block px-6 py-2.5 bg-gradient-primary text-white rounded-lg font-medium text-center"
               onClick={() => setIsMenuOpen(false)}
             >

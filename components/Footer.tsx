@@ -26,22 +26,22 @@ export default function Footer() {
             <h3 className="font-semibold text-white mb-4">Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#features" className="hover:text-white transition-colors">
+                <a href="/#features" className="hover:text-white transition-colors">
                   Ferramentas
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
+                <a href="/#how-it-works" className="hover:text-white transition-colors">
                   Como funciona
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="hover:text-white transition-colors">
+                <a href="/#pricing" className="hover:text-white transition-colors">
                   Planos
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-white transition-colors">
+                <a href="/#faq" className="hover:text-white transition-colors">
                   FAQ
                 </a>
               </li>
@@ -52,18 +52,18 @@ export default function Footer() {
             <h3 className="font-semibold text-white mb-4">Legal</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/termos-de-uso" className="hover:text-white transition-colors">
                   Termos de uso
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <a href="/politica-de-privacidade" className="hover:text-white transition-colors">
                   Política de Privacidade
                 </a>
               </li>
               <li>
-                <a href="mailto:suporte@profit3d.com" className="hover:text-white transition-colors">
-                  Suporte
+                <a href="/contato" className="hover:text-white transition-colors">
+                  Contato / Suporte
                 </a>
               </li>
             </ul>
@@ -96,9 +96,9 @@ export default function Footer() {
                 <Youtube size={20} />
               </a>
               <a
-                href="mailto:suporte@profit3d.com"
+                href="/contato"
                 className="text-gray-400 hover:text-white transition-colors"
-                aria-label="E-mail"
+                aria-label="Contato"
               >
                 <Mail size={20} />
               </a>

@@ -79,7 +79,7 @@ export default function FAQ() {
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">Ainda tem dúvidas?</p>
           <a
-            href="mailto:suporte@profit3d.com"
+            href="/contato"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
           >
             Entre em contato
