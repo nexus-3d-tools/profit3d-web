@@ -78,7 +78,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/profit3d.io/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
@@ -87,7 +87,7 @@ export default function Footer() {
                 <Instagram size={20} />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/@profit3d"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
