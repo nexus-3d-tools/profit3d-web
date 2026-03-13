@@ -1,8 +1,15 @@
-import { Check, Shield, CreditCard, RotateCcw } from "lucide-react";
+"use client";
+
+import { Check, Shield, CreditCard, RotateCcw, Loader2 } from "lucide-react";
+import { useState } from "react";
+
+const API_CHECKOUT = "https://api.profit3d.com.br/checkout";
 
 const plans = [
   {
     marketplace: "Mercado Livre",
+    planIdMonthly: "BASIC",
+    planIdYearly: "BASIC_YEAR",
     icon: "ML",
     iconImage: "/icons/ml-icon.png",
     iconColor: "bg-yellow-400",
@@ -27,6 +34,8 @@ const plans = [
   },
   {
     marketplace: "Shopee + Mercado Livre",
+    planIdMonthly: "PRO",
+    planIdYearly: "PRO_YEAR",
     icon: "S+ML",
     iconImage: "/icons/combo-icon.png",
     iconColor: "bg-gradient-to-r from-orange-500 to-yellow-400",
@@ -52,6 +61,37 @@ const plans = [
 ];
 
 export default function PricingPreview() {
+  const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const [annualByPlan, setAnnualByPlan] = useState<Record<number, boolean>>({ 0: false, 1: false });
+
+  async function handleCheckout(planId: string) {
+    setError("");
+    setLoading(planId);
+    try {
+      const res = await fetch(API_CHECKOUT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.message || data.error || "Erro ao iniciar checkout. Tente novamente.");
+        return;
+      }
+      const url = data.checkoutUrl || data.url;
+      if (url) {
+        window.location.href = url;
+      } else {
+        setError("Resposta inválida do servidor.");
+      }
+    } catch (e) {
+      setError("Erro de conexão. Verifique sua internet e tente novamente.");
+    } finally {
+      setLoading(null);
+    }
+  }
+
   return (
     <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50/30">
       <div className="max-w-7xl mx-auto">
@@ -65,11 +105,17 @@ export default function PricingPreview() {
             cancele quando quiser.
           </p>
 
-          <div className="flex flex-wrap gap-6 justify-center items-center text-sm text-gray-600">
-            <div className="flex items-center gap-2">
-              <Shield className="text-green-600" size={20} />
-              <span>Checkout seguro</span>
-            </div>
+          {error && (
+          <div className="max-w-md mx-auto mb-6">
+            <p className="text-center text-sm text-red-600">{error}</p>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-6 justify-center items-center text-sm text-gray-600 mb-8">
+          <div className="flex items-center gap-2">
+            <Shield className="text-green-600" size={20} />
+            <span>Checkout seguro</span>
+          </div>
             <div className="flex items-center gap-2">
               <CreditCard className="text-blue-600" size={20} />
               <span>Cobrança recorrente e automática</span>
@@ -111,32 +157,62 @@ export default function PricingPreview() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.marketplace}</h3>
               </div>
 
-              <div className="space-y-4 mb-6">
-                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex items-baseline justify-between mb-1">
-                    <span className="text-sm font-medium text-gray-600">Plano Mensal</span>
-                    <div>
-                      <span className="text-3xl font-bold text-gray-900">R$ {plan.monthly.price}</span>
-                      <span className="text-gray-600">/mês</span>
-                    </div>
+              <div className="mb-6">
+                <div className="p-5 rounded-xl border-2 border-gray-200 bg-gray-50 mb-4">
+                  <div className="flex items-baseline justify-between mb-2">
+                    <span className="text-3xl font-bold text-gray-900">
+                      {annualByPlan[index] ? plan.yearly.monthlyEquivalent : plan.monthly.price}
+                    </span>
+                    <span className="text-gray-600">/mês</span>
                   </div>
-                  <p className="text-xs text-gray-500">Cobrado mensalmente</p>
-                </div>
-
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
-                  <div className="flex items-baseline justify-between mb-1">
-                    <span className="text-sm font-medium text-blue-700">Plano Anual</span>
-                    <div>
-                      <span className="text-3xl font-bold text-gray-900">{plan.yearly.monthlyEquivalent}</span>
-                      <span className="text-gray-600">/mês*</span>
+                  <p className="text-sm text-gray-500 mb-4">
+                    {annualByPlan[index] ? (
+                      <>Pagamento anual de {plan.yearly.fullPrice}</>
+                    ) : (
+                      <>Cobrado mensalmente</>
+                    )}
+                  </p>
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg bg-white border border-gray-200 hover:border-blue-300 transition-colors">
+                    <div className="relative flex-shrink-0 w-11 h-6">
+                      <input
+                        type="checkbox"
+                        checked={annualByPlan[index] || false}
+                        onChange={(e) => setAnnualByPlan((prev) => ({ ...prev, [index]: e.target.checked }))}
+                        className="sr-only peer"
+                      />
+                      <div className={`w-full h-full rounded-full transition-colors ${annualByPlan[index] ? "bg-green-500" : "bg-gray-200"}`} />
+                      <div
+                        className="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
+                        style={{ transform: annualByPlan[index] ? "translateX(20px)" : "translateX(0)" }}
+                      />
                     </div>
-                  </div>
-                  <p className="text-xs text-gray-600 mb-1">*Pagamento anual de {plan.yearly.fullPrice}</p>
-                  <p className="text-xs font-semibold text-green-600">{plan.yearly.savings}</p>
+                    <span className="text-sm font-medium text-gray-700">
+                      {annualByPlan[index] ? (
+                        <span className="text-green-600">{plan.yearly.savings}</span>
+                      ) : (
+                        <>Economize com cobrança anual – R$ {plan.yearly.monthlyEquivalent}/mês</>
+                      )}
+                    </span>
+                  </label>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => handleCheckout(annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly)}
+                  disabled={!!loading}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold text-base transition-all shadow-md hover:shadow-lg ${
+                    plan.popular
+                      ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
+                      : "bg-gray-900 text-white hover:bg-gray-800"
+                  } disabled:opacity-60 disabled:cursor-not-allowed`}
+                >
+                  {loading === (annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly) ? (
+                    <Loader2 className="inline animate-spin mr-2" size={20} />
+                  ) : null}
+                  Assinar {annualByPlan[index] ? "anual" : "mensal"}
+                </button>
               </div>
 
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-6">
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <Check className="text-green-500 flex-shrink-0 mt-0.5" size={20} />
@@ -144,17 +220,6 @@ export default function PricingPreview() {
                   </li>
                 ))}
               </ul>
-
-              <a
-                href="#"
-                className={`block text-center w-full px-6 py-4 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg ${
-                  plan.popular
-                    ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
-                    : "bg-gray-900 text-white hover:bg-gray-800"
-                }`}
-              >
-                Assinar agora →
-              </a>
             </div>
           ))}
         </div>
