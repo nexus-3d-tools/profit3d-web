@@ -5,13 +5,12 @@ export const BRAND = {
   tagline: "Ferramentas para vendedores de impressão 3D",
 };
 
-// Stripe checkout URLs (to be configured later)
-export const STRIPE_CHECKOUT = {
-  ML_MONTHLY: "#", // Replace with Stripe checkout URL
-  ML_YEARLY: "#",  // Replace with Stripe checkout URL
-  COMBO_MONTHLY: "#", // Replace with Stripe checkout URL
-  COMBO_YEARLY: "#",  // Replace with Stripe checkout URL
-};
+// API - use NEXT_PUBLIC_API_URL no .env (ex: https://q11zbkfn.up.railway.app)
+export const API_BASE =
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) ||
+  "https://q11zbkfn.up.railway.app";
+
+export const EXTENSION_URL = "https://chromewebstore.google.com/detail/profit3d/akijhijcjegpldmcinplchgcijmdnmak";
 
 // Social media links
 export const SOCIAL = {

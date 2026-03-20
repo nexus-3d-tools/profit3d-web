@@ -2,8 +2,7 @@
 
 import { Check, Shield, CreditCard, RotateCcw, Loader2 } from "lucide-react";
 import { useState } from "react";
-
-const API_CHECKOUT = "https://api.profit3d.com.br/checkout";
+import { API_BASE } from "@/lib/constants";
 
 const plans = [
   {
@@ -61,32 +60,41 @@ const plans = [
 ];
 
 export default function PricingPreview() {
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [annualByPlan, setAnnualByPlan] = useState<Record<number, boolean>>({ 0: false, 1: false });
 
-  async function handleCheckout(planId: string) {
+  async function handleCheckout(plan: string) {
+    const trimmed = email.trim();
+    if (!trimmed) {
+      setError("Informe seu e-mail para receber o link da extensão após o pagamento.");
+      return;
+    }
     setError("");
-    setLoading(planId);
+    setLoading(plan);
+    const apiUrl = `${API_BASE}/api/checkout`;
     try {
-      const res = await fetch(API_CHECKOUT, {
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId }),
+        body: JSON.stringify({ plan, customerEmail: trimmed }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.message || data.error || "Erro ao iniciar checkout. Tente novamente.");
+        const msg = data.error || data.message || `Erro ${res.status}. Tente novamente.`;
+        setError(msg);
         return;
       }
-      const url = data.checkoutUrl || data.url;
-      if (url) {
-        window.location.href = url;
+      const checkoutUrl = data.checkoutUrl;
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
       } else {
         setError("Resposta inválida do servidor.");
       }
     } catch (e) {
-      setError("Erro de conexão. Verifique sua internet e tente novamente.");
+      const errMsg = e instanceof Error ? e.message : "Erro de conexão";
+      setError(`Erro: ${errMsg}. Verifique se a API está online (${API_BASE}).`);
     } finally {
       setLoading(null);
     }
@@ -105,7 +113,27 @@ export default function PricingPreview() {
             cancele quando quiser.
           </p>
 
-          {error && (
+          <div className="max-w-md mx-auto mb-8 text-left">
+          <label htmlFor="checkout-email" className="block text-sm font-medium text-gray-700 mb-2">
+            Seu e-mail (obrigatório) — para envio do link da extensão
+          </label>
+          <input
+            id="checkout-email"
+            type="email"
+            value={email}
+            onChange={(e) => { setEmail(e.target.value); setError(""); }}
+            placeholder="seu@email.com"
+            required
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          />
+          {!email.trim() && (
+            <p className="mt-2 text-sm text-amber-600">
+              Preencha seu e-mail acima para habilitar os botões de assinatura.
+            </p>
+          )}
+        </div>
+
+        {error && (
           <div className="max-w-md mx-auto mb-6">
             <p className="text-center text-sm text-red-600">{error}</p>
           </div>
@@ -198,16 +226,19 @@ export default function PricingPreview() {
                 <button
                   type="button"
                   onClick={() => handleCheckout(annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly)}
-                  disabled={!!loading}
+                  disabled={!!loading || !email.trim()}
+                  title={!email.trim() ? "Preencha seu e-mail acima para continuar" : undefined}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-base transition-all shadow-md hover:shadow-lg ${
-                    plan.popular
-                      ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
-                      : "bg-gray-900 text-white hover:bg-gray-800"
+                    !email.trim()
+                      ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                      : plan.popular
+                        ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
+                        : "bg-gray-900 text-white hover:bg-gray-800"
                   } disabled:opacity-60 disabled:cursor-not-allowed`}
                 >
-                  {loading === (annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly) ? (
+                  {loading === (annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly) && (
                     <Loader2 className="inline animate-spin mr-2" size={20} />
-                  ) : null}
+                  )}
                   Assinar {annualByPlan[index] ? "anual" : "mensal"}
                 </button>
               </div>
