@@ -5,10 +5,10 @@ export const BRAND = {
   tagline: "Ferramentas para vendedores de impressão 3D",
 };
 
-// API - use NEXT_PUBLIC_API_URL no .env (ex: https://q11zbkfn.up.railway.app)
+// API - use NEXT_PUBLIC_API_URL no .env para sobrescrever (ex: Railway em dev)
 export const API_BASE =
   (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) ||
-  "https://q11zbkfn.up.railway.app";
+  "https://api.profit3d.com.br";
 
 export const EXTENSION_URL = "https://chromewebstore.google.com/detail/profit3d/akijhijcjegpldmcinplchgcijmdnmak";
 

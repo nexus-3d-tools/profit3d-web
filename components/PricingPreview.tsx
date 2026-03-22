@@ -1,8 +1,8 @@
 "use client";
 
-import { Check, Shield, CreditCard, RotateCcw, Loader2 } from "lucide-react";
+import { Check, Shield, CreditCard, RotateCcw } from "lucide-react";
 import { useState } from "react";
-import { API_BASE } from "@/lib/constants";
+import { CheckoutButton } from "@/components/CheckoutButton";
 
 const plans = [
   {
@@ -60,45 +60,7 @@ const plans = [
 ];
 
 export default function PricingPreview() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState<string | null>(null);
-  const [error, setError] = useState("");
   const [annualByPlan, setAnnualByPlan] = useState<Record<number, boolean>>({ 0: false, 1: false });
-
-  async function handleCheckout(plan: string) {
-    const trimmed = email.trim();
-    if (!trimmed) {
-      setError("Informe seu e-mail para receber o link da extensão após o pagamento.");
-      return;
-    }
-    setError("");
-    setLoading(plan);
-    const apiUrl = `${API_BASE}/api/checkout`;
-    try {
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan, customerEmail: trimmed }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        const msg = data.error || data.message || `Erro ${res.status}. Tente novamente.`;
-        setError(msg);
-        return;
-      }
-      const checkoutUrl = data.checkoutUrl;
-      if (checkoutUrl) {
-        window.location.href = checkoutUrl;
-      } else {
-        setError("Resposta inválida do servidor.");
-      }
-    } catch (e) {
-      const errMsg = e instanceof Error ? e.message : "Erro de conexão";
-      setError(`Erro: ${errMsg}. Verifique se a API está online (${API_BASE}).`);
-    } finally {
-      setLoading(null);
-    }
-  }
 
   return (
     <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50/30">
@@ -112,32 +74,6 @@ export default function PricingPreview() {
             Todos os planos incluem os recursos completos da extensão escolhida. Cobrança recorrente e automática,
             cancele quando quiser.
           </p>
-
-          <div className="max-w-md mx-auto mb-8 text-left">
-          <label htmlFor="checkout-email" className="block text-sm font-medium text-gray-700 mb-2">
-            Seu e-mail (obrigatório) — para envio do link da extensão
-          </label>
-          <input
-            id="checkout-email"
-            type="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); setError(""); }}
-            placeholder="seu@email.com"
-            required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-          />
-          {!email.trim() && (
-            <p className="mt-2 text-sm text-amber-600">
-              Preencha seu e-mail acima para habilitar os botões de assinatura.
-            </p>
-          )}
-        </div>
-
-        {error && (
-          <div className="max-w-md mx-auto mb-6">
-            <p className="text-center text-sm text-red-600">{error}</p>
-          </div>
-        )}
 
         <div className="flex flex-wrap gap-6 justify-center items-center text-sm text-gray-600 mb-8">
           <div className="flex items-center gap-2">
@@ -223,24 +159,16 @@ export default function PricingPreview() {
                     </span>
                   </label>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleCheckout(annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly)}
-                  disabled={!!loading || !email.trim()}
-                  title={!email.trim() ? "Preencha seu e-mail acima para continuar" : undefined}
+                <CheckoutButton
+                  plan={annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-base transition-all shadow-md hover:shadow-lg ${
-                    !email.trim()
-                      ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                      : plan.popular
-                        ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
-                        : "bg-gray-900 text-white hover:bg-gray-800"
-                  } disabled:opacity-60 disabled:cursor-not-allowed`}
+                    plan.popular
+                      ? "bg-gradient-primary text-white hover:bg-gradient-primary-hover"
+                      : "bg-gray-900 text-white hover:bg-gray-800"
+                  }`}
                 >
-                  {loading === (annualByPlan[index] ? plan.planIdYearly : plan.planIdMonthly) && (
-                    <Loader2 className="inline animate-spin mr-2" size={20} />
-                  )}
                   Assinar {annualByPlan[index] ? "anual" : "mensal"}
-                </button>
+                </CheckoutButton>
               </div>
 
               <ul className="space-y-3 mb-6">
