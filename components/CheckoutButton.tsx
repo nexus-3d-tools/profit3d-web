@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Loader2, X } from "lucide-react";
 import { API_BASE } from "@/lib/constants";
 
@@ -64,7 +65,7 @@ export function CheckoutButton({ plan, className, children }: CheckoutButtonProp
         {children}
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
@@ -113,7 +114,8 @@ export function CheckoutButton({ plan, className, children }: CheckoutButtonProp
               </button>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
